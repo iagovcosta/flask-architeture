@@ -1,11 +1,14 @@
-from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/database.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATORS'] = False
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -23,7 +26,7 @@ class File(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200))
     directory = db.Column(db.String(200))
-    user_id = db.Column(db.Integer(10))
+    user_id = db.Column(db.Integer())
 
     def __init__(self, id, name, directory, user_id):
         self.id = id
