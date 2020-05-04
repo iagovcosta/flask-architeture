@@ -26,7 +26,7 @@ class User(db.Model):
         self.password = password
 
 class File(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255))
     data = db.Column(db.String(255))
     user_id = db.Column(db.Integer())
@@ -42,7 +42,7 @@ class UserSchema(ma.Schema):
 
 class FileSchema(ma.Schema):
     class Meta:
-        fields = ('name', 'directory', 'user_id')
+        fields = ('id', 'name', 'user_id')
 
 
 user_schema = UserSchema()
@@ -75,9 +75,9 @@ def uploadFiles():
 
     return jsonify({'success': True})
 
-@app.route('/files/download')
-def downloadFiles():
-    file_data = File.query.filter_by(id=1).first()
+@app.route('/files/download/<int:id>')
+def downloadFiles(id):
+    file_data = File.query.filter_by(id=id).first()
 
     return send_file(BytesIO(file_data.data), attachment_filename='flask.pdf', as_attachment=True)
 
