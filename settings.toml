@@ -6,6 +6,5 @@ UPLOAD_FOLDER = 'storage'
 
 TITLE = "Flask_Architeture"
 
-
 [production]
 SQLALCHEMY_DATABASE_URI = "mysql:///..."
