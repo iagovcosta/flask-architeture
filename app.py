@@ -21,7 +21,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 random_str = string.ascii_letters + string.digits + string.ascii_uppercase
 key = ''.join(random.choice(random_str) for i in range(12))
-# SECRET_KEY = key
+SECRET_KEY = key
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -164,6 +164,21 @@ def delete_file(id):
 
 ## Users ##
 
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.args.get('token')
+        if not token:
+            return jsonify({'message': 'É necessário o token de autenticação', 'data': {}}), 401
+        try:
+            data = jwt.decode(token, SECRET_KEY)
+            current_user = user_by_username(username=data['username'])
+        except:
+            return jsonify({'message': 'O token é inválido', 'data': {}}), 401
+        return f(current_user, *args, **kwargs)
+    return decorated
+
+
 @app.route('/users/create', methods=['POST'])
 def create_user():
     username = request.json['username']
@@ -205,7 +220,8 @@ def update_user(id):
 
 
 @app.route('/users', methods=["GET"])
-def get_users():
+@token_required
+def get_users(current_user):
     users = User.query.all()
 
     if users:
@@ -248,7 +264,6 @@ def user_by_username(username):
     except:
         return None
 
-
 @app.route('/auth', methods=['POST'])
 def authenticate():
 
@@ -262,7 +277,7 @@ def authenticate():
 
     if user and check_password_hash(user.password, auth.password):
         token = jwt.encode({'username': user.username, 'exp': datetime.datetime.now() + datetime.timedelta(hours=12)},
-                           'SECRET_KEY')
+                           SECRET_KEY)
         return jsonify({'message': 'Validado com sucesso', 'token': token.decode('UTF-8'),
                         'exp': datetime.datetime.now() + datetime.timedelta(hours=12)})
 
