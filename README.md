@@ -2,12 +2,12 @@
 
 Arquitetura de exemplo para projetos utilizando Flask Framework
 
-### Prerequisites
+### Pré-requisitos
 
 Python 3.6 ou superior
 Pip 20.1 ou superior
 
-### Installing
+### Instalação
 
 Criação de um ambiente virtual:
 
@@ -29,7 +29,7 @@ flask db migrate
 flask db upgrade
 ```
 
-Rodar projeto com:
+### Rodar o projeto
 
 ```
 flask run
