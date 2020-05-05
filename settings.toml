@@ -1,0 +1,11 @@
+[default]
+SQLALCHEMY_DATABASE_URI = "sqlite:///database.db"
+SQLALCHEMY_TRACK_MODIFICATIONS = "False"
+
+UPLOAD_FOLDER = 'storage'
+
+TITLE = "Flask_Architeture"
+
+
+[production]
+SQLALCHEMY_DATABASE_URI = "mysql:///..."
