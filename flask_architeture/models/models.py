@@ -29,6 +29,7 @@ class QueryWithSoftDelete(BaseQuery):
         return obj if obj is None or self._with_deleted or not obj.deleted else None
 
 class User(db.Model, FlaskSerializeMixin):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200))
     email = db.Column(db.String(200))
@@ -42,10 +43,11 @@ class User(db.Model, FlaskSerializeMixin):
         self.password = password
 
 class File(db.Model, FlaskSerializeMixin):
+    __tablename__ = 'files'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255))
     path_file = db.Column(db.String(255))
-    user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow, server_onupdate=db.func.now())
     deleted = db.Column(db.Boolean(), default=False)

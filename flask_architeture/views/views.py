@@ -1,5 +1,5 @@
 from flask import request, jsonify, abort
-from flask_architeture.models import File, User
+from flask_architeture.models.models import File, User
 import datetime
 import os
 
@@ -11,11 +11,12 @@ def init_app(app, db):
 
     @app.route('/files', methods=['GET'])
     def showFiles():
-        files = File.query.all() or abort(204)
+        # files = File.query.all() or abort(204)
 
-        return jsonify(
-            {"files": [file.to_dict() for file in files]}
-        )
+        return File.get_delete_put_post()
+        # return jsonify(
+        #     {"files": [file.to_dict() for file in files]}
+        # )
 
     def allowed_file(filename):
         return '.' in filename and \
