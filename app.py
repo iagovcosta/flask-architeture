@@ -139,4 +139,4 @@ def delete_user(id):
     file = File.query.get_or_404(id)
     file.deleted = True
     db.session.commit()
-    return '', 204
+    return jsonify({'sucess': True, 'message': 'Deletado com sucesso'}), 204
