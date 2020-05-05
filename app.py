@@ -21,10 +21,11 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 random_str = string.ascii_letters + string.digits + string.ascii_uppercase
 key = ''.join(random.choice(random_str) for i in range(12))
-SECRET_KEY = key
+# SECRET_KEY = key
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = key
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 migrate = Migrate(app, db)
@@ -249,7 +250,8 @@ def user_by_username(username):
 
 
 @app.route('/auth', methods=['POST'])
-def auth():
+def authenticate():
+
     auth = request.authorization
     if not auth or not auth.username or not auth.password:
         return jsonify({'message': 'Acesso negado', 'WWW-Authenticate': 'Basic auth="Login necessário"'}), 401
@@ -259,8 +261,8 @@ def auth():
         return jsonify({'message': 'Usuário não encontrado', 'data': {}}), 401
 
     if user and check_password_hash(user.password, auth.password):
-        token = jwt.encode({'name': user.username, 'exp': datetime.datetime.now() + datetime.timedelta(hours=12)},
-                           app.config['SECRET_KEY'])
+        token = jwt.encode({'username': user.username, 'exp': datetime.datetime.now() + datetime.timedelta(hours=12)},
+                           'SECRET_KEY')
         return jsonify({'message': 'Validado com sucesso', 'token': token.decode('UTF-8'),
                         'exp': datetime.datetime.now() + datetime.timedelta(hours=12)})
 
