@@ -8,7 +8,7 @@ from flask_architeture.bussines import resources
 app = Flask(__name__)
 
 configuration.init_app(app)
-init_app(app)
+init_app(app) #database_factory
 migrations.init_app(app, db)
 resources.init_app(app)
 
