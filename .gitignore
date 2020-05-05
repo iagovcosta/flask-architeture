@@ -1,5 +1,7 @@
 .venv/
+.env/
 venv/
 __pycache__/
 migrations/
 database.db
+storage/
