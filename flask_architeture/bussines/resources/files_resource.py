@@ -16,12 +16,12 @@ class FileResource(Resource):
 
     def post(self):
         if 'file' not in request.files:
-            return jsonify({'success': False, 'message': 'Nenhuma imagem enviada'})
+            return {'success': False, 'message': 'Nenhuma imagem enviada'}
 
         file = request.files['file']
 
         if file.filename == '':
-            return jsonify({'success': False, 'message': 'Nenhuma imagem enviada'})
+            return {'success': False, 'message': 'Nenhuma imagem enviada'}
 
         if file and self.allowed_file(file.filename):
             hased_name = str(datetime.datetime.now().timestamp())+'.pdf'
@@ -32,14 +32,23 @@ class FileResource(Resource):
             
             file.save(os.path.join('storage', hased_name))
 
-            return jsonify({'success': True, 'message': 'Arquivo salvo com sucesso'})
+            return {'success': True, 'message': 'Arquivo salvo com sucesso'}
 
 
 class FileItemResource(Resource):
     def delete(self, file_id):
-        file = File.query.get_or_404(file_id)
-        file.deleted = True
-        
-        db.session.commit()
+        try:
+            file = File.query.get(file_id)
+            file.deleted = True
+            
+            db.session.commit()
 
-        return jsonify({'sucess': True, 'message': 'Deletado com sucesso'}), 204
+            return {'success': True}, 200
+        except:
+            return {'success': False, 'message': 'Erro ao excluir'}, 404
+
+    def get(self, file_id):
+        try:
+            return File.get_delete_put_post(file_id)
+        except:
+            return {'success': False, 'message': 'Arquivo não encontrado!'}, 404
