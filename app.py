@@ -1,7 +1,10 @@
 from flask import Flask, jsonify, request, send_file
+
 from flask_sqlalchemy import SQLAlchemy, BaseQuery
 from flask_migrate import Migrate
+
 from flask_marshmallow import Marshmallow
+
 from werkzeug.utils import secure_filename
 import datetime
 import os
@@ -52,6 +55,7 @@ class User(db.Model):
     name = db.Column(db.String(200))
     email = db.Column(db.String(200))
     password = db.Column(db.String(200))
+    files = db.relationship('File', backref='user_id')
 
     def __init__(self, id, name, email, password):
         self.id = id
@@ -63,7 +67,7 @@ class File(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255))
     path_file = db.Column(db.String(255))
-    user_id = db.Column(db.Integer())
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow, server_onupdate=db.func.now())
     deleted = db.Column(db.Boolean(), default=False)
