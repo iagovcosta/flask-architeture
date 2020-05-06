@@ -2,18 +2,14 @@ from flask import abort, jsonify, request
 from flask_restful import Resource
 from flask_architeture.models.user import User, db
 from werkzeug.security import generate_password_hash, check_password_hash
-from .token_decorator import token_required
+from flask_architeture.bussines.auth.jwt_decorator import token_required 
 import string
 import random
-
-# random_str = string.ascii_letters + string.digits + string.ascii_uppercase
-# key = ''.join(random.choice(random_str) for i in range(12))
-# SECRET_KEY = key
-
 
 
 class UserResource(Resource):
 
+    @token_required
     def get(self):
         return User.get_delete_put_post()
 

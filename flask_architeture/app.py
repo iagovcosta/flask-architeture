@@ -5,10 +5,18 @@ from flask_architeture.extensions import migrations
 from flask_architeture.extensions import bootstrap
 from flask_architeture.bussines import web
 from flask_architeture.bussines import resources
- 
+
+import string
+import random
+
+
 
 app = Flask(__name__)
 
+
+random_str = string.ascii_letters + string.digits +string.ascii_uppercase
+key = ''.join(random.choice(random_str) for i in range(12))
+app.config['SECRET_KEY'] = key 
 
 configuration.init_app(app)
 init_app(app) #database_factory
