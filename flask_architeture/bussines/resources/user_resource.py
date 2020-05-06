@@ -29,6 +29,7 @@ class UserResource(Resource):
             return {'message': 'Não foi possível registrar', 'data': {}}, 500
 
 class UserItemResource(Resource):
+    @token_required
     def get(self, id):
         user = User.query.get(id)
 
@@ -39,6 +40,7 @@ class UserItemResource(Resource):
 
         return jsonify({'message': 'Usuário não existe', 'data': {}}), 404
 
+    @token_required
     def delete(self, id):
         user = User.query.get(id)
         if not user:
@@ -54,6 +56,7 @@ class UserItemResource(Resource):
             except:
                 return {'message': 'Não foi possível deletar', 'data': {}}, 500
 
+    @token_required
     def put(self, id):
         name = request.json['name']
         email = request.json['email']
