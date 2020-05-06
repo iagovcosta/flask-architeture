@@ -1,0 +1,33 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Upload de arquivos{% endblock %}
+
+{% block content %}
+<!-- Default form subscription -->
+<form class="text-center border border-light p-5" action="#!">
+
+    <p class="h4 mb-4">Realizar upload</p>
+
+    <p>Tipos de arquivos aceitos: .pdf .jpg .gif</p>
+
+    <div class="input-group">
+        <label id="browsebutton" class="btn btn-default input-group-addon" for="my-file-selector">
+            Browse...
+        </label>
+        <input type="file" class="form-control" readonly>
+    </div>
+
+    <button class="btn btn-info btn-block mt-5" type="submit">Upload</button>
+
+
+</form>
+<!-- Default form subscription -->
+
+<style>
+    form{
+        margin: 150px 400px auto 400px;
+    }
+    .mt-5{
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}
