@@ -7,8 +7,12 @@ from .auth import Auth
 bp = Blueprint("restapi", __name__, url_prefix="/api/v1")
 
 api = Api(bp)
+
+#FILES
 api.add_resource(FileResource, "/file")
 api.add_resource(FileItemResource, "/file/<file_id>")
+
+# USERS
 api.add_resource(UserResource, "/user")
 api.add_resource(UserItemResource, "/user/<id>")
 api.add_resource(Auth, "/auth")
