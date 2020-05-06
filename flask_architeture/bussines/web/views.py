@@ -39,7 +39,6 @@ def init_app(app, db):
     def delete_user(id):
         try:
             file = File.query.get(id)
-            files = File.query.all()
 
             file.deleted = True
             
