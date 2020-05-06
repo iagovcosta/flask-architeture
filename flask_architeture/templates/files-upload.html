@@ -2,7 +2,7 @@
 {% block title %}Upload de arquivos{% endblock %}
 
 {% block content %}
-<form class="text-center border border-light p-5" action="#!">
+<form method="POST" action="/files" enctype="multipart/form-data" class="text-center border border-light p-5" action="#!">
 
     <p class="h4 mb-4">Realizar upload</p>
 
@@ -10,10 +10,10 @@
 
     <div class="upload-btn-wrapper">
         <button class="btn-input">Arquivo</button>
-        <input type="file" name="myfile" />
+        <input type="file" name="file" />
     </div>
 
-    <button class="btn btn-info btn-block mt-5" type="submit">Realizar upload</button>
+    <input class="btn btn-info btn-block mt-5" type="submit" value="Enviar">
 
 
 </form>
