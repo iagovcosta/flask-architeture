@@ -1,0 +1,45 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Arquivos{% endblock %}
+
+{% block content %}
+
+<div class="container">
+<h1 class="text-muted text-center">Lista de arquivos importados</h1>
+
+<div class="content">
+    <ul class="nav nav-tabs mb-4">
+        <li class="nav-item">
+            <a class="nav-link active" href="#" aria-selected="true">Lista de arquivos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/file-upload">Upload de arquivo</a>
+        </li>
+    </ul>
+
+    <table class="table mt-4">
+        <thead>
+        <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Importado em:</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for file in files %}
+                <tr>
+                    <th scope="row">{{file.name}}</th>
+                    <td>{{file.created_at}}</td>
+                    <td><a href="files/delete/{{ file.id }}">Deletar</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+
+<style>
+    .content{
+        margin: 50px 200px auto 200px;
+    }
+</style>
+{% endblock %}

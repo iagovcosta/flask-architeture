@@ -1,0 +1,52 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Upload de arquivos{% endblock %}
+
+{% block content %}
+<form class="text-center border border-light p-5" action="#!">
+
+    <p class="h4 mb-4">Realizar upload</p>
+
+    <p>Tipos de arquivos aceitos: .pdf .jpg .gif</p>
+
+    <div class="upload-btn-wrapper">
+        <button class="btn-input">Arquivo</button>
+        <input type="file" name="myfile" />
+    </div>
+
+    <button class="btn btn-info btn-block mt-5" type="submit">Realizar upload</button>
+
+
+</form>
+
+<style>
+    form{
+        margin: 150px 400px auto 400px;
+    }
+    .mt-5{
+        margin-top: 10px;
+    }
+    .upload-btn-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .btn-input {
+        border: 2px solid gray;
+        color: gray;
+        background-color: white;
+        padding: 8px 200px;
+        border-radius: 8px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .upload-btn-wrapper input[type=file] {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+    }
+</style>
+{% endblock %}
