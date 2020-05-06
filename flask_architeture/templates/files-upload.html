@@ -2,25 +2,21 @@
 {% block title %}Upload de arquivos{% endblock %}
 
 {% block content %}
-<!-- Default form subscription -->
 <form class="text-center border border-light p-5" action="#!">
 
     <p class="h4 mb-4">Realizar upload</p>
 
     <p>Tipos de arquivos aceitos: .pdf .jpg .gif</p>
 
-    <div class="input-group">
-        <label id="browsebutton" class="btn btn-default input-group-addon" for="my-file-selector">
-            Browse...
-        </label>
-        <input type="file" class="form-control" readonly>
+    <div class="upload-btn-wrapper">
+        <button class="btn-input">Arquivo</button>
+        <input type="file" name="myfile" />
     </div>
 
-    <button class="btn btn-info btn-block mt-5" type="submit">Upload</button>
+    <button class="btn btn-info btn-block mt-5" type="submit">Realizar upload</button>
 
 
 </form>
-<!-- Default form subscription -->
 
 <style>
     form{
@@ -28,6 +24,29 @@
     }
     .mt-5{
         margin-top: 10px;
+    }
+    .upload-btn-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .btn-input {
+        border: 2px solid gray;
+        color: gray;
+        background-color: white;
+        padding: 8px 200px;
+        border-radius: 8px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .upload-btn-wrapper input[type=file] {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
     }
 </style>
 {% endblock %}

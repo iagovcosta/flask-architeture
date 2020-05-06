@@ -47,3 +47,12 @@ def init_app(app, db):
             return redirect(url_for('showFiles'))
         except:
             return jsonify({'sucess': False, 'message': 'Erro ao deletar'}), 404
+
+
+
+
+
+
+    @app.route('/test', methods=['GET'])
+    def teste():
+        return render_template('login.html')
