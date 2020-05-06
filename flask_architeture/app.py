@@ -3,7 +3,7 @@ from flask_architeture.extensions import configuration
 from flask_architeture.extensions.database import db, init_app
 from flask_architeture.extensions import migrations
 from flask_architeture.extensions import bootstrap
-from flask_architeture.bussines.web import views
+from flask_architeture.bussines import web
 from flask_architeture.bussines import resources
  
 
@@ -15,4 +15,5 @@ init_app(app) #database_factory
 migrations.init_app(app, db)
 resources.init_app(app)
 bootstrap.init_app(app)
-views.init_app(app, db)
+web.init_app(app)
+# views.init_app(app, db)
