@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask_restful import Api
 from .files_resource import FileResource, FileItemResource
 from .user_resource import UserResource, UserItemResource
-from .auth import Auth
+from flask_architeture.bussines.auth.jwt_auth import Auth
 
 bp = Blueprint("restapi", __name__, url_prefix="/api/v1")
 
