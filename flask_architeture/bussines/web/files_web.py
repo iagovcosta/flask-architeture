@@ -14,12 +14,12 @@ def allowed_file(filename):
 
 def upload_file():
     if 'file' not in request.files:
-        return jsonify({'success': False, 'message': 'Nenhuma imagem enviada'})
+        return {'success': False, 'message': 'Nenhum arquivo enviado'}
 
     file = request.files['file']
 
     if file.filename == '':
-        return jsonify({'success': False, 'message': 'Nenhuma imagem enviada'})
+        return {'success': False, 'message': 'Nenhum arquivo enviado'}
 
     if file and allowed_file(file.filename):
         hased_name = str(datetime.datetime.now().timestamp())+'.pdf'
@@ -31,7 +31,10 @@ def upload_file():
             
         file.save(os.path.join('storage', hased_name))
 
-        return jsonify({'success': True, 'message': 'Arquivo salvo com sucesso'})
+        return redirect(url_for('web.show_files'))
+
+def render_upload():
+    return render_template('files-upload.html')
 
 def delete_file(id):
     try:
