@@ -1,5 +1,5 @@
 from flask import Blueprint
-from .views import show_files, upload_file, delete_file
+from .files_web import show_files, upload_file, delete_file
 
 bp = Blueprint("web", __name__, template_folder="templates")
 
