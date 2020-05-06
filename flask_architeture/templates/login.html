@@ -1,0 +1,29 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<form class="text-center border border-light p-5" action="#!">
+
+    <p class="h4 mb-4">Login</p>
+
+    <p>Entre para armazenar seus arquivos</p>
+
+    <input type="email" id="defaultSubscriptionFormEmail" class="form-control mb-4 mt-5" placeholder="E-mail">
+    
+    <input type="password" id="defaultSubscriptionFormEmail" class="form-control mb-4 mt-5" placeholder="Senha">
+
+    <button class="btn btn-info btn-block mt-5" type="submit">Entrar</button>
+
+    <a class="mt-5" href="">Não tem cadastro? Cadastre-se aqui</a>
+
+</form>
+
+<style>
+    form{
+        margin: 150px 400px auto 400px;
+    }
+    .mt-5{
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}

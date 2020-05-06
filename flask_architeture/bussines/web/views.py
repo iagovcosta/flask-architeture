@@ -1,13 +1,14 @@
-from flask import request, jsonify, abort
-from flask_architeture.models.file import File
+from flask import request, render_template, jsonify, url_for, redirect
+from flask_architeture.models.file import File, db
 import datetime
 import os
 
 def init_app(app, db):
     @app.route('/files', methods=['GET'])
     def showFiles():
+        files = File.query.all()
 
-        return File.get_delete_put_post()
+        return render_template("files-list.html", files=files)
 
     def allowed_file(filename):
         return '.' in filename and \
@@ -34,11 +35,24 @@ def init_app(app, db):
 
             return jsonify({'success': True, 'message': 'Arquivo salvo com sucesso'})
 
-    @app.route('/files/<int:id>', methods=['DELETE'])
+    @app.route('/files/delete/<int:id>', methods=['GET'])
     def delete_user(id):
-        file = File.query.get_or_404(id)
-        file.deleted = True
-        
-        db.session.commit()
+        try:
+            file = File.query.get(id)
 
-        return jsonify({'sucess': True, 'message': 'Deletado com sucesso'}), 204
+            file.deleted = True
+            
+            db.session.commit()
+
+            return redirect(url_for('showFiles'))
+        except:
+            return jsonify({'sucess': False, 'message': 'Erro ao deletar'}), 404
+
+
+
+
+
+
+    @app.route('/test', methods=['GET'])
+    def teste():
+        return render_template('login.html')
