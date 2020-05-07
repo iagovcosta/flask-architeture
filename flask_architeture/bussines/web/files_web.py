@@ -14,12 +14,12 @@ def allowed_file(filename):
 
 def upload_file():
     if 'file' not in request.files:
-        return {'success': False, 'message': 'Nenhum arquivo enviado'}
+        return {'success': False, 'message': 'Nenhum arquivo enviado'}, 500
 
     file = request.files['file']
 
     if file.filename == '':
-        return {'success': False, 'message': 'Nenhum arquivo enviado'}
+        return {'success': False, 'message': 'Nenhum arquivo enviado'}, 500
 
     if file and allowed_file(file.filename):
         hased_name = str(datetime.datetime.now().timestamp())+'.pdf'
