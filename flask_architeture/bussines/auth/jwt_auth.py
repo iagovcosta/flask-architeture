@@ -22,6 +22,6 @@ class Auth(Resource):
         if user and check_password_hash(user.password, auth.password):
             token = jwt.encode({'username': user.name, 'exp': datetime.datetime.now() + datetime.timedelta(hours=12) }, '123')
 
-            return {'message': 'Validated successfully', 'token': token.decode('UTF-8')}
+            return {'message': 'Validated successfully', 'token': token.decode('UTF-8')}, 200
         
         return {'message': 'could not verify', 'WWW-Authenticate': 'Basic auth="Login required"'}, 401
