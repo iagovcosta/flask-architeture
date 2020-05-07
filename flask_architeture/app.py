@@ -14,3 +14,6 @@ migrations.init_app(app, db)
 resources.init_app(app)
 bootstrap.init_app(app)
 web.init_app(app)
+
+if __name__ == "__main__":
+    app.run(port=5000)
