@@ -21,6 +21,12 @@ Entrar no ambiente virtual com:
 source venv/bin/activate
 ```
 
+Instalar dependências com:
+
+```
+pip install -r requirements.txt
+```
+
 Criar tabelas do banco com:
 
 ```

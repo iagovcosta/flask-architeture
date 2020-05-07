@@ -7,8 +7,8 @@ import datetime
 class User(db.Model, FlaskSerializeMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(200))
-    email = db.Column(db.String(200))
+    name = db.Column(db.String(200), unique=True, nullable=False)
+    email = db.Column(db.String(200), unique=True, nullable=False)
     password = db.Column(db.String(200))
     files = db.relationship('File', backref='users_id')
 
