@@ -2,15 +2,15 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<form class="text-center border border-light p-5" action="#!">
+<form class="text-center border border-light p-5" action="/files">
 
     <p class="h4 mb-4">Login</p>
 
     <p>Entre para armazenar seus arquivos</p>
 
-    <input type="email" id="defaultSubscriptionFormEmail" class="form-control mb-4 mt-5" placeholder="E-mail">
+    <input type="email" name="email" id="defaultSubscriptionFormEmail" class="form-control mb-4 mt-5" placeholder="E-mail">
     
-    <input type="password" id="defaultSubscriptionFormEmail" class="form-control mb-4 mt-5" placeholder="Senha">
+    <input type="password" name="password" id="defaultSubscriptionFormEmail" class="form-control mb-4 mt-5" placeholder="Senha">
 
     <button class="btn btn-info btn-block mt-5" type="submit">Entrar</button>
 

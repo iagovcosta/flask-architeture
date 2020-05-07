@@ -15,12 +15,12 @@ class FileResource(Resource):
     @token_required
     def post(self, current_user):
         if 'file' not in request.files:
-            return {'success': False, 'message': 'Nenhuma imagem enviada'}
+            return {'success': False, 'message': 'Nenhuma imagem enviada'}, 500
 
         file = request.files['file']
 
         if file.filename == '':
-            return {'success': False, 'message': 'Nenhuma imagem enviada'}
+            return {'success': False, 'message': 'Nenhuma imagem enviada'}, 500
 
         allowed_file = '.' in file.filename and \
             file.filename.rsplit('.', 1)[1].lower() in {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
@@ -34,7 +34,7 @@ class FileResource(Resource):
             
             file.save(os.path.join('storage', hased_name))
 
-            return {'success': True, 'message': 'Arquivo salvo com sucesso'}
+            return {'success': True, 'message': 'Arquivo salvo com sucesso'}, 200
 
 
 class FileItemResource(Resource):
@@ -48,7 +48,7 @@ class FileItemResource(Resource):
 
             return {'success': True}, 200
         except:
-            return {'success': False, 'message': 'Erro ao excluir'}, 404
+            return {'success': False, 'message': 'Erro ao excluir'}, 500
 
     @token_required
     def get(self, file_id):
