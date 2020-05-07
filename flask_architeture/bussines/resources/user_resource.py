@@ -19,32 +19,32 @@ class UserResource(Resource):
         password = request.json['password']
         pass_hash = generate_password_hash(password)
         user = User(name, email, pass_hash)
-        if user:
-            db.session.add(user)
-            db.session.commit()
-            # result = user_schema.dump(user)
-            # return {'message': 'Registrado com sucesso', 'data': user}, 201
-            return {'message': 'Registrado com sucesso'}, 201
-        else:
-            return {'message': 'Não foi possível registrar', 'data': {}}, 500
+        
+        try:
+            if user:
+                db.session.add(user)
+                db.session.commit()
+                # result = user_schema.dump(user)
+                # return {'message': 'Registrado com sucesso', 'data': user}, 201
+                return {'message': 'Registrado com sucesso'}, 201
+            else:
+                return {'message': 'Não foi possível registrar', 'data': {}}, 500
+        except:
+            return {'message': 'Não foi possível registrar'}, 500
 
 class UserItemResource(Resource):
     @token_required
     def get(self, id):
-        user = User.query.get(id)
-
-        if user:
-            # result = user_schema.dump(user)
-            # return jsonify({'message': 'Sucesso', 'data': result}), 201
-            return {'message': 'Sucesso'}, 201
-
-        return jsonify({'message': 'Usuário não existe', 'data': {}}), 404
+        try:
+            return User.get_delete_put_post(id)
+        except:
+            return {'message': 'Nenhum usuário encontrado'}
 
     @token_required
     def delete(self, id):
         user = User.query.get(id)
         if not user:
-            return {'message': 'Usuário não existe', 'data': {}}, 404
+            return {'message': 'Usuário não existe'}, 404
 
         if user:
             try:
@@ -54,7 +54,7 @@ class UserItemResource(Resource):
                 # return jsonify({'message': 'Usuário deletado', 'data': result}), 200
                 return {'message': 'Usuário deletado'}, 200
             except:
-                return {'message': 'Não foi possível deletar', 'data': {}}, 500
+                return {'message': 'Não foi possível deletar'}, 500
 
     @token_required
     def put(self, id):
